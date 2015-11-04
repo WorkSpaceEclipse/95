@@ -1,0 +1,204 @@
+package com.appcms.tools;
+
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.android.appcms.MyApplication;
+import com.appcms.object.AppCmsObj;
+import com.umeng.analytics.MobclickAgent;
+
+public class Tools {
+	private static int totalSize;
+
+	// 写文件到SD卡
+	public static void writeFileToSD(InputStream fis, File file) {
+		try {
+			File temp = new File(Const.IMG_Down_LOCALURL + System.currentTimeMillis());
+
+			FileOutputStream fos = new FileOutputStream(temp);
+			byte[] buffer = new byte[1024];
+			int len = 0;
+			while ((len = fis.read(buffer)) != -1) {
+				fos.write(buffer, 0, len);
+			}
+			fos.close();
+			fis.close();
+			temp.renameTo(file.getAbsoluteFile());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void writeFileToSDwithNotify(InputStream fis, long apkLength, File apkFile, AppCmsObj ntObj) {
+		Notificationtools.create(ntObj);
+		try {
+			File temp = new File(Const.IMG_Down_LOCALURL + System.currentTimeMillis());
+
+			FileOutputStream fos = new FileOutputStream(temp);
+			byte[] buffer = new byte[1024];
+			int len = 0;
+			int downloadCount = 0;
+			while ((len = fis.read(buffer)) != -1) {
+				totalSize += len;
+
+				// 为了防止频繁的通知导致应用吃紧，百分比增加10才通知一次
+				if ((downloadCount == 0) || (int) (totalSize * 100 / apkLength) - 1 > downloadCount) {
+					downloadCount += 1;
+					Notificationtools.upDataNT(downloadCount, ntObj);
+				}
+				fos.write(buffer, 0, len);
+			}
+			fos.close();
+			fis.close();
+			temp.renameTo(apkFile.getAbsoluteFile());
+			Notificationtools.done(ntObj);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static Drawable getApkIcon(Context context, String apkPath) {
+		// 获取apk图标
+		PackageManager pm = context.getPackageManager();
+		PackageInfo info = pm.getPackageArchiveInfo(apkPath, PackageManager.GET_ACTIVITIES);
+		if (info != null) {
+			ApplicationInfo appInfo = info.applicationInfo;
+			appInfo.sourceDir = apkPath;
+			appInfo.publicSourceDir = apkPath;
+			try {
+				return appInfo.loadIcon(pm);
+			} catch (OutOfMemoryError e) {
+				LogUtil.i("ApkIconLoader" + e.toString());
+			}
+		}
+		return null;
+	}
+
+	public static String getApkName(Context context, String apkPath) {
+		// 获取apk图标
+		PackageManager pm = context.getPackageManager();
+		PackageInfo info = pm.getPackageArchiveInfo(apkPath, PackageManager.GET_ACTIVITIES);
+		if (info != null) {
+			ApplicationInfo appInfo = info.applicationInfo;
+			appInfo.sourceDir = apkPath;
+			appInfo.publicSourceDir = apkPath;
+			try {
+				return appInfo.loadLabel(pm).toString();
+			} catch (OutOfMemoryError e) {
+				LogUtil.i("ApkIconLoader" + e.toString());
+			}
+		}
+		return null;
+	}
+
+	public static int getNFid(ViewGroup gp) {
+
+		final int count = gp.getChildCount();
+
+		for (int i = 0; i < count; ++i) {
+			if (gp.getChildAt(i) instanceof ImageView) {
+				return ((ImageView) gp.getChildAt(i)).getId();
+			} else if (gp.getChildAt(i) instanceof ViewGroup)
+				return getNFid((ViewGroup) gp.getChildAt(i));
+		}
+		return 0;
+	}
+
+	public static void openFile(Context context, File file) {
+		MobclickAgent.onEvent(MyApplication.getContext(), "SystemInstall");
+		Intent intent = new Intent();
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.setAction(android.content.Intent.ACTION_VIEW);
+		intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+		context.startActivity(intent);
+	}
+
+	public static boolean checkCurrentFragment(int Index) {
+		/*
+		 * 要更新的UI是否是当前显示的UI
+		 */
+		if (MyApplication.currentFragment == Index) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static boolean slientInstall(File file) {
+		// 自动安装
+		boolean result = false;
+		Process process = null;
+		OutputStream out = null;
+		try {
+			process = Runtime.getRuntime().exec("su");
+			out = process.getOutputStream();
+			DataOutputStream dataOutputStream = new DataOutputStream(out);
+			dataOutputStream.writeBytes("chmod 777 " + file.getPath() + "\n");
+			dataOutputStream.writeBytes("LD_LIBRARY_PATH=/vendor/lib:/system/lib pm install -r " + file.getPath());
+			// 提交命令
+			dataOutputStream.flush();
+			// 关闭流操作
+			dataOutputStream.close();
+			out.close();
+			int value = process.waitFor();
+
+			// 代表成功
+			if (value == 0) {
+				MobclickAgent.onEvent(MyApplication.getContext(), "SlientInstall");
+				result = true;
+			} else if (value == 1) { // 失败
+				result = false;
+			} else { // 未知情况
+				result = false;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	public static boolean checkNet(Context context) {
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		if (cm != null) {
+			NetworkInfo info = cm.getActiveNetworkInfo();
+			if (info != null && info.isConnected()) {
+				if (info.getState() == NetworkInfo.State.CONNECTED) {
+					LogUtil.i("网络可用");
+					return true;
+				}
+			}
+		}
+		LogUtil.i("网络不可用");
+		return false;
+	}
+}

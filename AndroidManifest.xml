@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.android.appcms"
+    android:versionCode="103"
+    android:versionName="1.03" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- UMENG -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" >
+    </uses-permission>
+    <!-- UMENG -->
+    <application
+        android:name="com.android.appcms.MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="adjustPan" >
+        <activity
+            android:name="com.android.appcms.LogoActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoDisplay" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.android.appcms.BaseActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name="com.appcms.appinfo.AppInfoActivity"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="com.appcms.push.PushActivity"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity android:name="com.appcms.search.SearchActivity" >
+        </activity>
+
+        <service android:name="com.android.appcms.BaseService" >
+        </service>
+
+        <receiver android:name="com.android.appcms.BaseBroadcast" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter android:priority="1000" >
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="55d7d5f167e58e03ae0015bd" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="sjzs95" />
+    </application>
+
+</manifest>

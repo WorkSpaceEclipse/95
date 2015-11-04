@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" >
+
+        <TextView
+            android:id="@+id/tv_topiczhuanti_appname"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="17dp"
+            android:layout_toRightOf="@+id/iv_topiczhuanti_applogo"
+            android:singleLine="true"
+            android:text="AppName"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/tv_topiczhuanti_appsize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_topiczhuanti_appname"
+            android:layout_below="@+id/tv_topiczhuanti_appname"
+            android:text="下载次数   大小"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/tv_topiczhuanti_appintro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_topiczhuanti_appsize"
+            android:layout_below="@+id/tv_topiczhuanti_appsize"
+            android:text="介绍" />
+
+        <Button
+            android:id="@+id/bt_topiczhuanti_appdown"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_topiczhuanti_appintro"
+            android:layout_toRightOf="@+id/tv_topiczhuanti_appname"
+            android:background="@drawable/down"
+            android:text="@string/down" />
+
+        <ImageView
+            android:id="@+id/iv_topiczhuanti_applogo"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon" />
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.appcms.search.SearchActivity" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/searchgreen" >
+
+        <ImageView
+            android:id="@+id/iv_search_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/iv_click_selector"
+            android:src="@drawable/nav_back" />
+
+        <EditText
+            android:id="@+id/et_search_search"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_weight="9"
+            android:background="@color/white"
+            android:ems="10"
+            android:paddingLeft="5dp"
+            android:imeOptions="actionSearch"
+            android:singleLine="true" >
+
+            <requestFocus />
+        </EditText>
+
+        <ImageView
+            android:id="@+id/iv_search_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/iv_click_selector"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/search_bar_btn_left" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout1" >
+    </ListView>
+
+    <ProgressBar
+        android:id="@+id/progressBar_serach"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminateDrawable="@drawable/progresstyle" />
+
+</RelativeLayout>

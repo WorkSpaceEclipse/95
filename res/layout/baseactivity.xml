@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".BaseActivity" >
+
+    <LinearLayout
+        android:id="@+id/lv_tags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/bg"
+        android:gravity="bottom"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tv_recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/recommondpng_selector"
+            android:gravity="center"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:text="@string/recommend"
+            android:textColor="@drawable/bottomtextcolor_selector" />
+
+        <TextView
+            android:id="@+id/tv_game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/gamepng_selector"
+            android:gravity="center"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:selectAllOnFocus="true"
+            android:text="@string/game"
+            android:textColor="@drawable/bottomtextcolor_selector" />
+
+        <TextView
+            android:id="@+id/tv_soft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/softpng_selector"
+            android:gravity="center"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:text="@string/software"
+            android:textColor="@drawable/bottomtextcolor_selector" />
+
+        <TextView
+            android:id="@+id/tv_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/topicpng_selector"
+            android:gravity="center"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:text="@string/topic"
+            android:textColor="@drawable/bottomtextcolor_selector" />
+
+        <!-- TextView
+            android:id="@+id/tv_manager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/managerpng_selector"
+            android:gravity="center"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:text="@string/manager"
+            android:textColor="@drawable/bottomtextcolor_selector" /-->
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_search"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/app_info_head_bg" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_base_search"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/tv_jingxuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/jingxuan"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/toptextcolor_selector" />
+
+            <TextView
+                android:id="@+id/tv_fenlei"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/fenlei"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/toptextcolor_selector" />
+
+            <TextView
+                android:id="@+id/tv_base_bangdan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/BangDan"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@drawable/toptextcolor_selector" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_base_search"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="55dp"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/search_album_item_top"
+            android:drawableLeft="@drawable/search_bar_btn_left"
+            android:gravity="center_vertical"
+            android:textColor="@color/graywhite"
+            android:textSize="20dp" >
+        </TextView>
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="8dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/icon" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_basefragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lv_tags"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/rel_search" >
+
+        <com.android.appcms.BaseViewPage
+            android:id="@+id/vp_base"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_base"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:indeterminateDrawable="@drawable/progresstyle" />
+    </RelativeLayout>
+
+</RelativeLayout>

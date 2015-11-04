@@ -1,0 +1,30 @@
+# view AndroidManifest.xml #generated:38
+-keep class com.android.appcms.BaseActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:57
+-keep class com.android.appcms.BaseBroadcast { <init>(...); }
+
+# view AndroidManifest.xml #generated:54
+-keep class com.android.appcms.BaseService { <init>(...); }
+
+# view res/layout/baseactivity.xml #generated:165
+-keep class com.android.appcms.BaseViewPage { <init>(...); }
+
+# view AndroidManifest.xml #generated:28
+-keep class com.android.appcms.LogoActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:21
+-keep class com.android.appcms.MyApplication { <init>(...); }
+
+# view AndroidManifest.xml #generated:43
+-keep class com.appcms.appinfo.AppInfoActivity { <init>(...); }
+
+# view res/layout/fenlei_gridview_child.xml #generated:8
+-keep class com.appcms.fenlei.FenleiMyGridView { <init>(...); }
+
+# view AndroidManifest.xml #generated:47
+-keep class com.appcms.push.PushActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:51
+-keep class com.appcms.search.SearchActivity { <init>(...); }
+
